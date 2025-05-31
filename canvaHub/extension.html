@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bC Works Canva Hub</title>
+  <link rel="stylesheet" href="extension.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="icon48.png" alt="Logo" class="logo">
+      <h1>Canva Hub</h1>
+      <p class="subtitle">Premium Images Gallery</p>
+      <a href="https://form.typeform.com/to/rhg8ibzR" target="_blank" class="popup-feedback-btn" title="Send Feedback">
+        <span class="material-icons">favorite</span>
+      </a>
+      <button id="dark-mode-toggle" class="dark-mode-toggle" title="Toggle dark mode">
+        <span class="material-icons">dark_mode</span>
+      </button>
+      
+      <div class="tools-menu">
+        <button class="tools-button">
+          <span class="material-icons">apps</span>
+          Tools
+          <span class="material-icons">arrow_drop_down</span>
+        </button>
+        <div class="tools-dropdown">
+          <div class="tools-section">
+            <h3>Image Filters</h3>
+            <button class="tool-item" data-tool="filter-resolution">
+              <span class="material-icons">filter_alt</span>
+              Filter by Resolution
+            </button>
+            
+            <button class="tool-item" data-tool="filter-domain">
+              <span class="material-icons">domain</span>
+              Filter by Domain
+            </button>
+           
+          </div>
+
+          <div class="tools-section">
+            <h3>Export Options</h3>
+            <button class="tool-item" data-tool="download-all">
+              <span class="material-icons">download</span>
+              Download All
+            </button>
+            <button class="tool-item" data-tool="download-zip">
+              <span class="material-icons">folder_zip</span>
+              Download as ZIP
+            </button>
+            <button class="tool-item" data-tool="export-html">
+              <span class="material-icons">code</span>
+              Export as HTML
+            </button>
+            <button class="tool-item" data-tool="copy-urls">
+              <span class="material-icons">content_copy</span>
+              Copy All URLs
+            </button>
+          </div>
+
+          <div class="tools-section">
+            <h3>Advanced Tools</h3>
+            <button class="tool-item" data-tool="show-context">
+              <span class="material-icons">info</span>
+              Show Image Context
+            </button>
+            <button class="tool-item" data-tool="cleanup">
+              <span class="material-icons">cleaning_services</span>
+              Smart Cleanup
+            </button>
+            <button class="tool-item" data-tool="classify">
+              <span class="material-icons">label</span>
+              Classify Images
+            </button>
+            <button class="tool-item" data-tool="dev-mode">
+              <span class="material-icons">developer_mode</span>
+              Dev Mode
+            </button>
+          </div>
+
+          <div class="tools-section">
+            <h3>Bonus Features</h3>
+            <button class="tool-item" data-tool="refresh-urls">
+              <span class="material-icons">refresh</span>
+              Refresh URLs
+            </button>
+            <button class="tool-item" data-tool="screenshot">
+              <span class="material-icons">screenshot</span>
+              Canvas Screenshot
+            </button>
+            <button class="tool-item" data-tool="upscale">
+              <span class="material-icons">zoom_in</span>
+              AI Upscale
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <input id="image-search" class="image-search" type="text" placeholder="Search images by alt or URL..." style="display:none;" autocomplete="off" />
+    <h2 id="image-count-title" class="image-count-title"></h2>
+    <div id="images-container"></div>
+  </main>
+
+  <footer>
+    <p>bC Works 2025</p>
+  </footer>
+
+  <script src="jszip.min.js"></script>
+  <script src="extension.js"></script>
+
+</body>
+</html>

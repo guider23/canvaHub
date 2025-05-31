@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "bC Works Canva Hub",
+  "version": "1.0",
+  "description": "Bypass Canva Pro restrictions and unlock access to their premium stock image library.",
+  "icons": {
+    "48": "icon48.png"
+  },
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab",
+    "storage",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Canva Hub",
+    "default_popup": "popup.html",
+    "default_icon": "icon48.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": [{
+    "resources": ["extension.html", "extension.js", "extension.css"],
+    "matches": ["<all_urls>"]
+  }]
+}
