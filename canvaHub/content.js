@@ -47,7 +47,7 @@ function showCanvaExtractToast(msg) {
 
   // Add it to the page
   document.body.appendChild(toast);
-
+//Aesthetics matters 🤣
   // Fade in, wait a bit, then fade out and remove
   setTimeout(() => { toast.style.opacity = '1'; }, 10);
   setTimeout(() => {
