@@ -3,7 +3,7 @@
 </p>
 
 
-[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](manifest.json) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Chrome Web Store](https://img.shields.io/badge/chrome%20web%20store-coming%20soon-green.svg)](#) [![Issues](https://img.shields.io/github/issues/yourusername/yourrepository.svg)](https://github.com/yourusername/yourrepository/issues) [![Forks](https://img.shields.io/github/forks/yourusername/yourrepository.svg)](https://github.com/yourusername/yourrepository/network/members) [![Stars](https://img.shields.io/github/stars/yourusername/yourrepository.svg)](https://github.com/yourusername/yourrepository/stargazers)
+[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](manifest.json) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Chrome Web Store](https://img.shields.io/badge/chrome%20web%20store-coming%20soon-green.svg)](#) [![Issues](https://img.shields.io/github/issues/guider23/canvaHub.svg)](https://github.com/guider23/canvaHub/issues) [![Forks](https://img.shields.io/github/forks/guider23/canvaHub.svg)](https://github.com/guider23/canvaHub/network/members) [![Stars](https://img.shields.io/github/stars/guider23/canvaHub.svg)](https://github.com/guider23/canvaHub/stargazers)
 
 **Note:** GitHub badges (Issues, Forks, Stars) are placeholders. Replace `guider23/canvaHub` with the actual repository path. The Chrome Web Store badge is also a placeholder. Update the License badge if a different license is used.
 
