@@ -1,5 +1,8 @@
+# Canva Hub
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/de264ba7-7ca7-4931-bb75-443c866c4fc0" alt="Color Mat Logo" width="300"/>
+  
+  ![shot style-2025-06-12T11_12_43 251Z](https://github.com/user-attachments/assets/ad41d936-f84a-466f-8cf1-45ff095bfb97)
+
 </p>
 
 
