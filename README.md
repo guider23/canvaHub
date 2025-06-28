@@ -24,6 +24,9 @@ Bypass Canva Pro restrictions and unlock access to their premium stock image lib
 
 1.  **Download the Extension:**
     *   Clone this repository or download the ZIP file and unzip it to a local folder.
+  
+    ⚡Run this in terminal for all users
+```git clone https://github.com/guider23/canvaHub ```
 2.  **Open Chrome Extensions:**
     *   Open Google Chrome.
     *   Navigate to `chrome://extensions`.
