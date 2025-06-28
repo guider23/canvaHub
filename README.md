@@ -9,7 +9,7 @@
 [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](manifest.json) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Chrome Web Store](https://img.shields.io/badge/chrome%20web%20store-coming%20soon-green.svg)](#) [![Issues](https://img.shields.io/github/issues/guider23/canvaHub.svg)](https://github.com/guider23/canvaHub/issues) [![Forks](https://img.shields.io/github/forks/guider23/canvaHub.svg)](https://github.com/guider23/canvaHub/network/members) [![Stars](https://img.shields.io/github/stars/guider23/canvaHub.svg)](https://github.com/guider23/canvaHub/stargazers)
 
 
-# bC Works Canva Hub - Image Extractor
+# bC Works Canva Hub
 
 Bypass Canva Pro restrictions and unlock access to their premium stock image library with this powerful Chrome extension.
 
