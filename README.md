@@ -62,4 +62,4 @@ Contributions are welcome! If you have suggestions for improvements or encounter
 
 We appreciate your help in making this tool better!
 
-> If the extesnion failed to load then use "Ghost" Browser that may solve your issue <3
+> If the extension failed to load then use "Ghost" Browser that may solve your issue <3
