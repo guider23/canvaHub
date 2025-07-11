@@ -13,6 +13,9 @@
 
 Bypass Canva Pro restrictions and unlock access to their premium stock image library with this powerful Chrome extension.
 
+Tutorial link : https://youtu.be/U4F9MB9LaGE
+
+
 ## Features
 
 *   **Easy Image Extraction:** Seamlessly extract images from Canva.
@@ -58,3 +61,5 @@ Contributions are welcome! If you have suggestions for improvements or encounter
 *   Fork the repository and submit a pull request.
 
 We appreciate your help in making this tool better!
+
+> If the extesnion failed to load then use "Ghost" Browser that may solve your issue <3
