@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canva Hub Extension Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .success { color: green; }
+        .error { color: red; }
+        .warning { color: orange; }
+        button { padding: 10px 15px; margin: 5px; }
+        .log { background: #f5f5f5; padding: 10px; max-height: 200px; overflow-y: auto; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>Canva Hub Extension Test Page</h1>
+    
+    <div class="test-section">
+        <h3>Extension Status</h3>
+        <div id="extension-status">Checking...</div>
+        <button onclick="testExtension()">Test Extension</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>Content Script Test</h3>
+        <div id="content-status">Not tested</div>
+        <button onclick="testContentScript()">Test Content Script</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>Sample Canva Images (for testing)</h3>
+        <img src="https://media-public.canva.com/MADGynwb-bA/1/thumbnail.jpg" alt="Test Image 1" style="max-width: 200px;">
+        <img src="https://media-public.canva.com/sample-image/1/thumbnail.jpg" alt="Test Image 2" style="max-width: 200px;">
+        <p>If extension is working, it should detect these images.</p>
+    </div>
+    
+    <div class="test-section">
+        <h3>Console Log</h3>
+        <div class="log" id="console-log"></div>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const logEl = document.getElementById('console-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : '';
+            logEl.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            logEl.scrollTop = logEl.scrollHeight;
+            console.log(`[CanvaHub Test] ${message}`);
+        }
+
+        function clearLog() {
+            document.getElementById('console-log').innerHTML = '';
+        }
+
+        function testExtension() {
+            log('Testing extension availability...');
+            
+            if (typeof chrome !== 'undefined' && chrome.runtime) {
+                log('Chrome extension API available', 'success');
+                document.getElementById('extension-status').innerHTML = '<span class="success">✓ Extension API available</span>';
+                
+                // Test if our extension is loaded
+                if (chrome.runtime.getManifest) {
+                    try {
+                        const manifest = chrome.runtime.getManifest();
+                        log(`Extension manifest loaded: ${manifest.name} v${manifest.version}`, 'success');
+                    } catch (e) {
+                        log(`Error reading manifest: ${e.message}`, 'error');
+                    }
+                }
+            } else {
+                log('Chrome extension API not available', 'error');
+                document.getElementById('extension-status').innerHTML = '<span class="error">✗ Extension API not available</span>';
+            }
+        }
+
+        function testContentScript() {
+            log('Testing content script...');
+            
+            if (typeof window.canvaHubTest === 'function') {
+                try {
+                    const result = window.canvaHubTest();
+                    log(`Content script test result: ${JSON.stringify(result)}`, 'success');
+                    document.getElementById('content-status').innerHTML = '<span class="success">✓ Content script working</span>';
+                } catch (e) {
+                    log(`Content script test error: ${e.message}`, 'error');
+                    document.getElementById('content-status').innerHTML = '<span class="error">✗ Content script error</span>';
+                }
+            } else {
+                log('Content script test function not available', 'error');
+                document.getElementById('content-status').innerHTML = '<span class="error">✗ Content script not loaded</span>';
+            }
+        }
+
+        // Auto-run tests when page loads
+        window.addEventListener('load', function() {
+            log('Test page loaded');
+            setTimeout(testExtension, 500);
+            setTimeout(testContentScript, 1000);
+        });
+
+        // Listen for extension messages
+        if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+            chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+                log(`Received message: ${JSON.stringify(request)}`);
+                return true;
+            });
+        }
+    </script>
+</body>
+</html>

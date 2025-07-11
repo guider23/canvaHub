@@ -14,14 +14,13 @@
     "clipboardWrite"
   ],
   "host_permissions": [
-    "<all_urls>"
+    "*://*.canva.com/*"
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com"
   },
   "background": {
-    "service_worker": "background.js",
-    "type": "module"
+    "service_worker": "background.js"
   },
   "action": {
     "default_title": "Canva Hub",
@@ -30,12 +29,14 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "matches": ["*://*.canva.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
     }
   ],
   "web_accessible_resources": [{
-    "resources": ["extension.html", "extension.js", "extension.css"],
-    "matches": ["<all_urls>"]
+    "resources": ["extension.html", "extension.js", "extension.css", "brave-diagnostic.js"],
+    "matches": ["*://*.canva.com/*"]
   }]
 }
