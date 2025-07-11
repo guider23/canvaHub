@@ -34,7 +34,7 @@ Bypass Canva Pro restrictions and unlock access to their premium stock image lib
     *   In the top right corner of the Extensions page, toggle the "Developer mode" switch to the on position.
 4.  **Load the Extension:**
     *   Click the "Load unpacked" button that appears.
-    *   Select the `canva-image-extractor` directory (the folder where you unzipped or cloned the files).
+    *   Select the `canvaHub-Fix` directory (the folder where you unzipped or cloned the files).
 5.  The **bC Works Canva Hub** extension icon should now appear in your Chrome toolbar.
 
 ## How to Use
