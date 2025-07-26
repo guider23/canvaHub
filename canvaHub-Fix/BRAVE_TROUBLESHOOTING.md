@@ -1,4 +1,4 @@
-# Brave Browser Troubleshooting Guide
+﻿# Brave Browser Troubleshooting Guide
 
 If the Canva Hub extension is not working in Brave but works in other browsers, follow these steps:
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Canva Hub Extension Test</title>
@@ -61,7 +61,6 @@
                 log('Chrome extension API available', 'success');
                 document.getElementById('extension-status').innerHTML = '<span class="success">✓ Extension API available</span>';
                 
-                // Test if our extension is loaded
                 if (chrome.runtime.getManifest) {
                     try {
                         const manifest = chrome.runtime.getManifest();
@@ -94,14 +93,12 @@
             }
         }
 
-        // Auto-run tests when page loads
         window.addEventListener('load', function() {
             log('Test page loaded');
             setTimeout(testExtension, 500);
             setTimeout(testContentScript, 1000);
         });
 
-        // Listen for extension messages
         if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
             chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 log(`Received message: ${JSON.stringify(request)}`);

@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --primary-color: #1a73e8;
   --primary-hover: #1557b0;
   --text-primary: #202124;
@@ -132,7 +132,6 @@ h1 {
   text-align: center;
 }
 
-/* Loading animation */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -185,4 +184,4 @@ h1 {
 .popup-feedback-btn .material-icons {
   font-size: 20px;
   line-height: 1;
-} 
+}

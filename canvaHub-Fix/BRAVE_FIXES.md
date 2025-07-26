@@ -1,4 +1,4 @@
-# Brave Browser Fixes Summary
+﻿# Brave Browser Fixes Summary
 
 ## Changes Made to Fix Brave Compatibility:
 

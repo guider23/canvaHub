@@ -1,4 +1,4 @@
-# Canva Hub Extension - Debugging Guide
+﻿# Canva Hub Extension - Debugging Guide
 
 ## Common Issues and Solutions
 

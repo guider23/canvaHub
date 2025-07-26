@@ -1,11 +1,8 @@
-window.addEventListener('DOMContentLoaded', () => {
+﻿window.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('images-container');
   let popupTimeout;
-  //bc works 2025
   let isScrolling = false;
   let imageData = [];
-  
-  // Create popup container
   const popup = document.createElement('div');
   popup.className = 'image-popup';
   const closeButton = document.createElement('button');
@@ -13,20 +10,14 @@ window.addEventListener('DOMContentLoaded', () => {
   closeButton.innerHTML = '<span class="material-icons">close</span>';
   popup.appendChild(closeButton);
   document.body.appendChild(popup);
-
-  // Handle popup close XD
   closeButton.addEventListener('click', () => {
     popup.classList.remove('active');
   });
-
-  // Close popup on escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && popup.classList.contains('active')) {
       popup.classList.remove('active');
     }
   });
-
-  // Handle scroll events
   window.addEventListener('scroll', () => {
     isScrolling = true;
     clearTimeout(popupTimeout);
@@ -34,13 +25,10 @@ window.addEventListener('DOMContentLoaded', () => {
       isScrolling = false;
     }, 150);
   });
-
-  // Tools functionality
   document.querySelectorAll('.tool-item').forEach(button => {
     button.addEventListener('click', async (e) => {
       e.stopPropagation();
       const tool = button.dataset.tool;
-      
       switch(tool) {
         case 'filter-resolution':
           showResolutionFilter();
@@ -87,46 +75,34 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
-  // Function to copy image to clipboard
   async function copyImageToClipboard(url) {
     try {
-      // First try to get the image as a blob
       const response = await fetch(url, {
         mode: 'cors',
         credentials: 'omit'
       });
-      
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
       const blob = await response.blob();
-      
-      // Create a ClipboardItem with the blob
       const item = new ClipboardItem({ 'image/png': blob });
       await navigator.clipboard.write([item]);
       return true;
     } catch (err) {
       console.error('Failed to copy image:', err);
-      // Try alternative method if the first one fails
       try {
         const img = new Image();
         img.crossOrigin = 'anonymous';
-        
         await new Promise((resolve, reject) => {
           img.onload = resolve;
           img.onerror = reject;
           img.src = url;
         });
-
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
-        
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0);
-        
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
         const item = new ClipboardItem({ 'image/png': blob });
         await navigator.clipboard.write([item]);
@@ -137,8 +113,6 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-
-  // Tool functions lol some of them doesn't work XD
   function showResolutionFilter() {
     const resolutions = new Set(imageData.map(img => `${img.width}x${img.height}`));
     const filterDialog = document.createElement('div');
@@ -161,10 +135,8 @@ window.addEventListener('DOMContentLoaded', () => {
         Apply Filter
       </button>
     `;
-
     const closeButton = filterDialog.querySelector('.close-dialog');
     closeButton.addEventListener('click', () => filterDialog.remove());
-
     const applyButton = filterDialog.querySelector('.apply-filter');
     applyButton.addEventListener('click', () => {
       const selectedResolutions = Array.from(filterDialog.querySelectorAll('input:checked')).map(input => input.value);
@@ -175,10 +147,8 @@ window.addEventListener('DOMContentLoaded', () => {
       filterImages('resolution', selectedResolutions);
       filterDialog.remove();
     });
-
     document.body.appendChild(filterDialog);
   }
-
   function showFormatFilter() {
     const formats = new Set(imageData.map(img => img.format));
     const filterDialog = document.createElement('div');
@@ -201,10 +171,8 @@ window.addEventListener('DOMContentLoaded', () => {
         Apply Filter
       </button>
     `;
-
     const closeButton = filterDialog.querySelector('.close-dialog');
     closeButton.addEventListener('click', () => filterDialog.remove());
-
     const applyButton = filterDialog.querySelector('.apply-filter');
     applyButton.addEventListener('click', () => {
       const selectedFormats = Array.from(filterDialog.querySelectorAll('input:checked')).map(input => input.value);
@@ -215,10 +183,8 @@ window.addEventListener('DOMContentLoaded', () => {
       filterImages('format', selectedFormats);
       filterDialog.remove();
     });
-
     document.body.appendChild(filterDialog);
   }
-
   function showDomainFilter() {
     const domains = new Set(imageData.map(img => new URL(img.src).hostname));
     const filterDialog = document.createElement('div');
@@ -241,10 +207,8 @@ window.addEventListener('DOMContentLoaded', () => {
         Apply Filter
       </button>
     `;
-
     const closeButton = filterDialog.querySelector('.close-dialog');
     closeButton.addEventListener('click', () => filterDialog.remove());
-
     const applyButton = filterDialog.querySelector('.apply-filter');
     applyButton.addEventListener('click', () => {
       const selectedDomains = Array.from(filterDialog.querySelectorAll('input:checked')).map(input => input.value);
@@ -255,25 +219,18 @@ window.addEventListener('DOMContentLoaded', () => {
       filterImages('domain', selectedDomains);
       filterDialog.remove();
     });
-
     document.body.appendChild(filterDialog);
   }
-
-  // Keyboard Shortcuts and Search
   const searchInput = document.getElementById('image-search');
   let searchActive = false;
   let lastSearch = '';
-
-  // Show search bar on /, focus, and filter images
   window.addEventListener('keydown', (e) => {
-    // Ctrl+Shift+C → Copy all
     if (e.ctrlKey && e.shiftKey && e.code === 'KeyC') {
       e.preventDefault();
       copyAllUrls();
       showToast('All image URLs copied!');
       return;
     }
-    // / to search
     if (e.key === '/' && !searchActive && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
       e.preventDefault();
       searchInput.style.display = 'block';
@@ -283,7 +240,6 @@ window.addEventListener('DOMContentLoaded', () => {
       filterImages('search', []);
       return;
     }
-    // Escape to exit search
     if (e.key === 'Escape' && searchActive) {
       searchInput.value = '';
       searchInput.style.display = 'none';
@@ -291,7 +247,6 @@ window.addEventListener('DOMContentLoaded', () => {
       filterImages('search', []);
       return;
     }
-    // Modal navigation
     if (document.querySelector('.image-popup.active')) {
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -305,14 +260,10 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-
-  // Live search filter
   searchInput && searchInput.addEventListener('input', () => {
     lastSearch = searchInput.value.trim().toLowerCase();
     filterImages('search', []);
   });
-
-  // Modal navigation logic
   let currentModalIndex = -1;
   function navigateModal(direction) {
     const visibleCards = Array.from(document.querySelectorAll('.image-card')).filter(card => card.style.display !== 'none');
@@ -335,13 +286,10 @@ window.addEventListener('DOMContentLoaded', () => {
       popup.classList.add('active');
     }
   }
-
-  // Update image card click to set currentModalIndex
   function setModalIndexBySrc(src) {
     const visibleCards = Array.from(document.querySelectorAll('.image-card')).filter(card => card.style.display !== 'none');
     currentModalIndex = visibleCards.findIndex(card => card.querySelector('img').src === src);
   }
-
   function filterImages(type, selectedValues) {
     const cards = document.querySelectorAll('.image-card');
     let visibleCount = 0;
@@ -380,15 +328,12 @@ window.addEventListener('DOMContentLoaded', () => {
       showToast(`Found ${visibleCount} images`);
     }
   }
-
-  // Add click outside to close filter dialog
   document.addEventListener('click', (e) => {
     const filterDialog = document.querySelector('.filter-dialog');
     if (filterDialog && !filterDialog.contains(e.target) && !e.target.closest('.tool-item')) {
       filterDialog.remove();
     }
   });
-
   async function downloadAllImages() {
     for (const img of imageData) {
       const a = document.createElement('a');
@@ -398,7 +343,6 @@ window.addEventListener('DOMContentLoaded', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
     }
   }
-
   async function downloadAsZip() {
     const zip = new JSZip();
     const promises = imageData.map(async (img, index) => {
@@ -406,7 +350,6 @@ window.addEventListener('DOMContentLoaded', () => {
       const blob = await response.blob();
       zip.file(`image-${index + 1}-${img.width}x${img.height}.${img.format}`, blob);
     });
-    
     await Promise.all(promises);
     const content = await zip.generateAsync({ type: 'blob' });
     const a = document.createElement('a');
@@ -414,7 +357,6 @@ window.addEventListener('DOMContentLoaded', () => {
     a.download = 'canva-images.zip';
     a.click();
   }
-
   function exportAsHtml() {
     const html = `
       <!DOCTYPE html>
@@ -445,55 +387,38 @@ window.addEventListener('DOMContentLoaded', () => {
         </body>
       </html>
     `;
-    
     const blob = new Blob([html], { type: 'text/html' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'canva-gallery.html';
     a.click();
   }
-
   function copyAllUrls() {
     const urls = imageData.map(img => `[${img.width}x${img.height}](${img.src})`).join('\n');
     navigator.clipboard.writeText(urls);
     showToast('All URLs copied to clipboard!');
   }
-
   function showImageContext() {
-    // Implementation for showing image context
     showToast('Image context feature coming soon!');
   }
-
   function cleanupImages() {
-    // Implementation for smart cleanup
     showToast('Cleanup feature coming soon!');
   }
-
   function classifyImages() {
-    // Implementation for image classification
     showToast('Classification feature coming soon!');
   }
-
   function toggleDevMode() {
-    // Implementation for dev mode
     showToast('Dev mode coming soon!');
   }
-
   function refreshUrls() {
-    // Implementation for URL refresh
     showToast('URL refresh feature coming soon!');
   }
-
   function takeScreenshot() {
-    // Implementation for screenshot
     showToast('Screenshot feature coming soon!');
   }
-
   function upscaleImages() {
-    // Implementation for AI upscale
     showToast('AI upscale feature coming soon!');
   }
-
   function showToast(message) {
     const toast = document.createElement('div');
     toast.className = 'toast';
@@ -501,12 +426,10 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
   }
-
   function updateImageCountTitle(count) {
     const title = document.getElementById('image-count-title');
     title.textContent = `Found ${count} Premium Canva Image${count === 1 ? '' : 's'}`;
   }
-
   chrome.storage.local.get('canvaImages', async data => {
     const urls = data.canvaImages || [];
     updateImageCountTitle(urls.length);
@@ -514,11 +437,9 @@ window.addEventListener('DOMContentLoaded', () => {
       container.innerHTML = '<p>No images found on this page.</p>';
       return;
     }
-
     for (const src of urls) {
       const img = new Image();
       img.crossOrigin = 'anonymous';
-      
       img.onload = () => {
         imageData.push({
           src,
@@ -527,16 +448,12 @@ window.addEventListener('DOMContentLoaded', () => {
           format: src.split('.').pop().toLowerCase()
         });
       };
-      
       img.src = src;
-
       const card = document.createElement('div');
       card.className = 'image-card';
-
       const imgElement = document.createElement('img');
       imgElement.src = src;
       imgElement.crossOrigin = 'anonymous';
-      
       imgElement.onload = () => {
         card.classList.add('loaded');
         const dimensions = document.createElement('div');
@@ -544,8 +461,6 @@ window.addEventListener('DOMContentLoaded', () => {
         dimensions.textContent = `${imgElement.naturalWidth}x${imgElement.naturalHeight}`;
         card.appendChild(dimensions);
       };
-
-      // Add click handler for popup
       card.addEventListener('click', (e) => {
         if (isScrolling) return;
         if (e.target.closest('.copy-button')) return;
@@ -553,7 +468,6 @@ window.addEventListener('DOMContentLoaded', () => {
         const popupImg = document.createElement('img');
         popupImg.src = src;
         popupImg.crossOrigin = 'anonymous';
-        // Clear existing image
         const existingImg = popup.querySelector('img');
         if (existingImg) {
           existingImg.remove();
@@ -561,23 +475,18 @@ window.addEventListener('DOMContentLoaded', () => {
         popup.insertBefore(popupImg, closeButton);
         popup.classList.add('active');
       });
-      
       card.appendChild(imgElement);
-
       const btnContainer = document.createElement('div');
       btnContainer.className = 'button-container';
-
       const copyImageBtn = document.createElement('button');
       copyImageBtn.className = 'copy-button';
       copyImageBtn.innerHTML = '<span class="material-icons">content_copy</span>';
       copyImageBtn.title = 'Copy Image';
-      
       copyImageBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         try {
           copyImageBtn.innerHTML = '<span class="material-icons">hourglass_empty</span>';
           const success = await copyImageToClipboard(src);
-          
           if (success) {
             copyImageBtn.innerHTML = '<span class="material-icons">check</span>';
             copyImageBtn.classList.add('success');
@@ -585,7 +494,6 @@ window.addEventListener('DOMContentLoaded', () => {
             copyImageBtn.innerHTML = '<span class="material-icons">download</span>';
             copyImageBtn.classList.add('error');
             copyImageBtn.title = 'Click to download instead';
-            
             copyImageBtn.addEventListener('click', (e) => {
               e.stopPropagation();
               const a = document.createElement('a');
@@ -594,7 +502,6 @@ window.addEventListener('DOMContentLoaded', () => {
               a.click();
             }, { once: true });
           }
-          
           setTimeout(() => {
             copyImageBtn.innerHTML = '<span class="material-icons">content_copy</span>';
             copyImageBtn.classList.remove('success', 'error');
@@ -606,17 +513,13 @@ window.addEventListener('DOMContentLoaded', () => {
           copyImageBtn.classList.add('error');
         }
       });
-      
       btnContainer.appendChild(copyImageBtn);
       card.appendChild(btnContainer);
       container.appendChild(card);
     }
   });
-
-  // Dark mode toggle logic
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   const body = document.body;
-
   function setDarkMode(enabled) {
     if (enabled) {
       body.classList.add('dark-mode');
@@ -626,14 +529,10 @@ window.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('darkMode', '0');
     }
   }
-
   darkModeToggle.addEventListener('click', () => {
     setDarkMode(!body.classList.contains('dark-mode'));
   });
-
-  // On load, set dark mode if previously enabled
   if (localStorage.getItem('darkMode') === '1') {
     setDarkMode(true);
   }
 });
-//lol end
